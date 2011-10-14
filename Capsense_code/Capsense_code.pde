@@ -1,9 +1,11 @@
 #include <CapSense.h>
 
 int counter = 6000;
-const int RED = 9;    //Red LED Pin
-const int GREEN = 10; //Green LED Pin
-const int BLUE = 11;  //Blue LED Pin
+int counterStart = 6000; // record how long we counting for
+int setColourRgb;
+const int redPin = 9;    //Red LED Pin
+const int greenPin = 10; //Green LED Pin
+const int bluePin = 11;  //Blue LED Pin
 
 int threshold = 35;
 
@@ -24,12 +26,6 @@ void loop()
 {
     long start = millis();
     long total1 =  cs_4_2.capSense(30);
-    
-    //smoothValue = ((smoothValue * 4) + total1) / 5;
-    
-   // Serial.print(millis() - start);        // check on performance in milliseconds
-    //Serial.print("\t");                    // tab character for debug windown spacing
-   // Serial.print(smoothValue);                  // print sensor output 1
     Serial.print(total1); 
     Serial.println("\t");
     int sensorValue = analogRead(0);
@@ -42,25 +38,44 @@ void loop()
 
 }
 
-void startTimer() {
+void startTimer()
+{
+  unsigned int rgbColour[3];
+
+  // Start off with red.
+  rgbColour[0] = 255;
+  rgbColour[1] = 0;
+  rgbColour[2] = 0;  
+
+  // Choose the colours to increment and decrement.
+  for (int decColour = 0; decColour < 3; decColour += 1) {
+    int incColour = decColour == 2 ? 0 : decColour + 1;
+
+    // cross-fade the two colours.
+    for(int i = 0; i < 255; i += 1) {
+      rgbColour[decColour] -= 1;
+      rgbColour[incColour] += 1;
     
-  ledValue = 255;
-  
-  
-    analogWrite(RED, ledValue);
-    analogWrite(GREEN, ledValue);
-    analogWrite(BLUE, ledValue);
-   
-    delay(60000);                             // arbitrary delay to limit data to serial port  
-  
-  
-  ledValue = 0;
-  
-    analogWrite(RED, ledValue);
-    analogWrite(GREEN, ledValue);
-    analogWrite(BLUE, ledValue);
-   
-    delay(10);   
-  
+      setColourRgb(rgbColour[0], rgbColour[1], rgbColour[2]);
+
+      delay(5);
   
 }
+  //ledValue = 255;
+  
+  
+   // analogWrite(RED, ledValue);
+    //analogWrite(GREEN, ledValue);
+    //analogWrite(BLUE, ledValue);
+   
+    //delay(60000);                             // arbitrary delay to limit data to serial port  
+  
+  
+  //ledValue = 0;
+  
+    //analogWrite(RED, ledValue);
+    //analogWrite(GREEN, ledValue);
+    //analogWrite(BLUE, ledValue);
+   
+   // delay(10);   
+  
