@@ -1,5 +1,7 @@
 #include <CapSense.h>
 
+//This code was referenced from: http://www.arduino.cc/playground/Main/CapSense//
+
 int counter = 6000;
 int counterStart = 6000; // record how long we counting for
 int setColourRgb;
@@ -38,44 +40,58 @@ void loop()
 
 }
 
-void startTimer()
-{
-  unsigned int rgbColour[3];
-
-  // Start off with red.
-  rgbColour[0] = 255;
-  rgbColour[1] = 0;
-  rgbColour[2] = 0;  
-
-  // Choose the colours to increment and decrement.
-  for (int decColour = 0; decColour < 3; decColour += 1) {
-    int incColour = decColour == 2 ? 0 : decColour + 1;
-
-    // cross-fade the two colours.
-    for(int i = 0; i < 255; i += 1) {
-      rgbColour[decColour] -= 1;
-      rgbColour[incColour] += 1;
+void startTimer() 
+{  
+  //while(1) {
+    //  unsigned int rgbColour[3];
+  
+    // Start off with red.
+   // rgbColour[RED] = 255;
+   // rgbColour[GREEN] = 0;
+   // rgbColour[BLUE] = 0;  
+  
+    // Choose the colours to increment and decrement.
+  
+   // for (int decColour = 0; decColour < 3; decColour += 1) {
+     // int incColour = decColour == 2 ? 0 : decColour + 1;
     
-      setColourRgb(rgbColour[0], rgbColour[1], rgbColour[2]);
+      // cross-fade the two colours.
+    //  for(int i = 0; i < 255; i += 1) {
+       // rgbColour[decColour] -= 1;
+       // rgbColour[incColour] += 1;
+        
+       // counter--;
+       // setColourRgb(rgbColour[RED], rgbColour[GREEN], rgbColour[BLUE]);
+       // delay(5);
+        //if (counter < 0) return ;
+      //}
+    //}
+ // }
+  
+//}
 
-      delay(5);
+//void setColourRgb(unsigned int red, unsigned int green, unsigned int blue) {
+//  analogWrite(RED, red);
+ // analogWrite(GREEN, green);
+ // analogWrite(BLUE, blue);
+ //}
+
+ ledValue = 255;
   
-}
-  //ledValue = 255;
   
-  
-   // analogWrite(RED, ledValue);
-    //analogWrite(GREEN, ledValue);
-    //analogWrite(BLUE, ledValue);
+    analogWrite(RED, ledValue);
+    analogWrite(GREEN, 0);
+    analogWrite(BLUE, 0);
    
-    //delay(60000);                             // arbitrary delay to limit data to serial port  
+    delay(10000);                          // arbitrary delay to limit data to serial port  
   
   
-  //ledValue = 0;
+  ledValue = 0;
   
-    //analogWrite(RED, ledValue);
-    //analogWrite(GREEN, ledValue);
-    //analogWrite(BLUE, ledValue);
+    analogWrite(RED, ledValue);
+    analogWrite(GREEN, 0);
+    analogWrite(BLUE, 0);
    
-   // delay(10);   
+   delay(10);  
+ } 
   
