@@ -1,6 +1,7 @@
 #include <CapSense.h>
 
-//This code was referenced from: http://www.arduino.cc/playground/Main/CapSense//
+//This code was referenced from: http://www.arduino.cc/playground/Main/CapSense
+//https://gist.github.com/766994
 
 int counter = 6000;
 int counterStart = 6000; // record how long we counting for
